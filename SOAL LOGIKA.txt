@@ -1,0 +1,205 @@
+SOAL NOMOR 1 :
+
+package main
+
+import "fmt"
+
+func tampilkanBilanganCacah(n int) {
+	count := 0
+	i := 1
+
+	for count < n {
+		if i%3 == 0 || i%7 == 0 {
+			fmt.Print(i)
+			if i%3 == 0 && i%7 == 0 {
+				fmt.Print("Z")
+			}
+			fmt.Println()
+			count++
+		}
+		i++
+	}
+}
+
+func main() {
+	var N int
+	fmt.Print("Masukkan nilai N: ")
+	fmt.Scanln(&N)
+
+	fmt.Println("Bilangan cacah kelipatan 3 atau 7: ")
+	tampilkanBilanganCacah(N)
+}
+
+
+SOAL NOMOR 2 :
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func cariKata(teks string) {
+	teks = strings.ToLower(teks)
+	kata := strings.Split(teks, " ")
+
+	for i := 0; i < len(kata); i++ {
+		if kata[i] == "sang" && kata[i+1] == "gajah" {
+			fmt.Print("sang gajah - ")
+		} else if kata[i] == "serigala" {
+			fmt.Print("serigala - ")
+		} else if kata[i] == "harimau" {
+			fmt.Print("harimau - ")
+		}
+	}
+
+	fmt.Println()
+}
+
+func main() {
+	teks := "Berikut adalah kisah sang gajah. Sang gajah memiliki teman serigala bernama Doe. Sang Gajah sering dibela oleh serigala ketika harimau mendekati gajah."
+
+	cariKata(teks)
+}
+
+SOAL NOMOR 3 :
+
+package main
+
+import (
+	"fmt"
+	"unicode"
+)
+
+func cekKataSandi(kataSandi string) string {
+
+	if len(kataSandi) < 8 || len(kataSandi) > 32 {
+		return "Kata sandi harus memiliki panjang antara 8 hingga 32 karakter"
+	}
+
+	if unicode.IsDigit(rune(kataSandi[0])) {
+		return "Karakter awal tidak boleh angka"
+	}
+
+	hasDigit := false
+	hasUpper := false
+	hasLower := false
+
+	for _, char := range kataSandi {
+		switch {
+		case unicode.IsDigit(char):
+			hasDigit = true
+		case unicode.IsUpper(char):
+			hasUpper = true
+		case unicode.IsLower(char):
+			hasLower = true
+		}
+	}
+
+	if !hasDigit {
+		return "Harus memiliki angka"
+	}
+	if !hasUpper || !hasLower {
+		return "Harus memiliki huruf kapital dan huruf kecil"
+	}
+
+	return "Kata sandi valid"
+}
+
+func main() {
+	var kataSandi string
+	fmt.Print("Masukkan kata sandi: ")
+	fmt.Scanln(&kataSandi)
+
+	status := cekKataSandi(kataSandi)
+	fmt.Println(status)
+}
+
+
+SOAL NOMOR 4 :
+
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+func cariBilanganCacahTerkecil(data []int) int {
+
+	sort.Ints(data)
+
+	bilangan := 1
+	for _, num := range data {
+		if num == bilangan {
+			bilangan++
+		} else if num > bilangan {
+			break
+		}
+	}
+
+	return bilangan
+}
+
+func main() {
+	var n int
+	fmt.Print("Masukkan jumlah bilangan: ")
+	fmt.Scan(&n)
+
+	data := make([]int, n)
+	for i := 0; i < n; i++ {
+		fmt.Printf("Masukkan bilangan ke-%d: ", i+1)
+		fmt.Scan(&data[i])
+	}
+
+	fmt.Println("Data:", data)
+	fmt.Println("Bilangan cacah terkecil yang tidak ada adalah:", cariBilanganCacahTerkecil(data))
+}
+
+
+SOAL NOMOR 5 :
+
+package main
+
+import (
+	"fmt"
+)
+
+func printPattern(n int) {
+	pattern := make([][]rune, n)
+
+	for i := 0; i < n; i++ {
+		pattern[i] = make([]rune, n)
+		for j := 0; j < n; j++ {
+			pattern[i][j] = 'X'
+		}
+	}
+
+	for i := 1; i < n-1; i++ {
+		for j := 1; j < n-1; j++ {
+			pattern[i][j] = 'O'
+		}
+	}
+
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			fmt.Printf("%c", pattern[i][j])
+		}
+		fmt.Println()
+	}
+}
+
+func main() {
+	var n int
+	fmt.Print("Masukkan nilai N (bilangan ganjil): ")
+	fmt.Scan(&n)
+
+	if n%2 != 0 && n > 0 {
+		fmt.Println("Pola: ")
+		printPattern(n)
+	} else {
+		fmt.Println("N harus merupakan bilangan ganjil dan lebih dari 0.")
+	}
+}
+
